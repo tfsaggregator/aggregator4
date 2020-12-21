@@ -1,0 +1,61 @@
+name: build-and-release
+
+on:
+  push:
+    paths:
+    - '.github/workflows/build-and-release.yml'
+    - 'src/**'
+  pull_request:
+    paths:
+    - '.github/workflows/build-and-release.yml'
+    - 'src/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      DOTNETSDK_VERSION: '5.0.101' # SDK Version to use.
+      CONFIGURATION: 'Release'
+      VERSION_ID: '2.0.$GITHUB_RUN_NUMBER'
+      RUNTIME: 'win-x64'
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '${{ env.DOTNETSDK_VERSION }}'
+    - name: 'NuGet Restore'
+      run: 'dotnet restore src/aggregator-cli.sln'
+    - name: 'Build solution'
+      run: 'dotnet build --configuration $CONFIGURATION src/aggregator-cli2.sln /p:Version=$VERSION_ID'
+    # Prepare Artifacts
+    - name: 'Package aggregator-cli Windows'
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: |
+        mkdir -p outputs/$RUNTIME
+        dotnet publish --configuration $CONFIGURATION --runtime $RUNTIME --self-contained true --output $GITHUB_WORKSPACE/outputs/$RUNTIME/ src/aggregator-cli/aggregator-cli2.csproj -p:Version=$VERSION_ID
+        pushd outputs/$RUNTIME && \
+        7z a -bd -r aggregator-cli-$RUNTIME.zip && \
+        popd
+    # Create Release in GitHub as Draft
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_name: ${{ env.VERSION_ID }}
+        body: ''
+        prerelease: false
+    - name: 'Upload aggregator-cli Windows'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./outputs/aggregator-cli2-${{ env.RUNTIME }}.zip
+        asset_name: aggregator-cli2-${{ env.RUNTIME }}.zip
+        asset_content_type: application/zip
+
