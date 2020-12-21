@@ -20,6 +20,7 @@ jobs:
       CONFIGURATION: 'Release'
       VERSION_ID: '2.0.$GITHUB_RUN_NUMBER'
       RUNTIME: 'win-x64'
+      APP_NAME: 'aggregator-cli2'  
 
     steps:
     - uses: actions/checkout@v1
@@ -27,17 +28,17 @@ jobs:
       with:
         dotnet-version: '${{ env.DOTNETSDK_VERSION }}'
     - name: 'NuGet Restore'
-      run: 'dotnet restore src/aggregator-cli.sln'
+      run: 'dotnet restore src/${APP_NAME}.sln'
     - name: 'Build solution'
-      run: 'dotnet build --configuration $CONFIGURATION src/aggregator-cli2.sln /p:Version=$VERSION_ID'
+      run: 'dotnet build --configuration $CONFIGURATION src/${APP_NAME}.csproj /p:Version=$VERSION_ID'
     # Prepare Artifacts
-    - name: 'Package aggregator-cli Windows'
+    - name: 'Package Windows falvour'
       if: startsWith(github.ref, 'refs/tags/v')
       run: |
         mkdir -p outputs/$RUNTIME
-        dotnet publish --configuration $CONFIGURATION --runtime $RUNTIME --self-contained true --output $GITHUB_WORKSPACE/outputs/$RUNTIME/ src/aggregator-cli/aggregator-cli2.csproj -p:Version=$VERSION_ID
+        dotnet publish --configuration $CONFIGURATION --runtime $RUNTIME --self-contained true --output $GITHUB_WORKSPACE/outputs/$RUNTIME/ src/$APP_NAME.csproj -p:Version=$VERSION_ID
         pushd outputs/$RUNTIME && \
-        7z a -bd -r aggregator-cli-$RUNTIME.zip && \
+        7z a -bd -r ${APP_NAME}-${RUNTIME}.zip && \
         popd
     # Create Release in GitHub as Draft
     - name: Create Release
@@ -49,13 +50,13 @@ jobs:
         release_name: ${{ env.VERSION_ID }}
         body: ''
         prerelease: false
-    - name: 'Upload aggregator-cli Windows'
+    - name: 'Upload Windows Package to Release'
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./outputs/aggregator-cli2-${{ env.RUNTIME }}.zip
-        asset_name: aggregator-cli2-${{ env.RUNTIME }}.zip
+        asset_path: ./outputs/${{ env.APP_NAME }}-${{ env.RUNTIME }}.zip
+        asset_name: ${{ env.APP_NAME }}-${{ env.RUNTIME }}.zip
         asset_content_type: application/zip
 
