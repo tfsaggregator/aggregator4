@@ -32,8 +32,7 @@ jobs:
     - name: 'Build solution'
       run: 'dotnet build --configuration $CONFIGURATION src/${APP_NAME}.csproj /p:Version=$VERSION_ID'
     # Prepare Artifacts
-    - name: 'Package Windows falvour'
-      if: startsWith(github.ref, 'refs/tags/v')
+    - name: 'Package Windows flavour'
       run: |
         mkdir -p outputs/$RUNTIME
         dotnet publish --configuration $CONFIGURATION --runtime $RUNTIME --self-contained true --output $GITHUB_WORKSPACE/outputs/$RUNTIME/ src/$APP_NAME.csproj -p:Version=$VERSION_ID
