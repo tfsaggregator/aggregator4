@@ -34,9 +34,9 @@ jobs:
     # Prepare Artifacts
     - name: 'Package Windows flavour'
       run: |
-        mkdir -p outputs/$RUNTIME
+        mkdir -p $GITHUB_WORKSPACE/outputs/$RUNTIME
         dotnet publish --configuration $CONFIGURATION --runtime $RUNTIME --self-contained true --output $GITHUB_WORKSPACE/outputs/$RUNTIME/ src/$APP_NAME.csproj -p:Version=$VERSION_ID
-        pushd outputs/$RUNTIME && \
+        pushd $GITHUB_WORKSPACE/outputs/$RUNTIME && \
         7z a -bd -r ${APP_NAME}-${RUNTIME}.zip && \
         popd
     # Create Release in GitHub as Draft
@@ -56,7 +56,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./outputs/${{ env.APP_NAME }}-${{ env.RUNTIME }}.zip
+        asset_path: ./outputs/$RUNTIME/${{ env.APP_NAME }}-${{ env.RUNTIME }}.zip
         asset_name: ${{ env.APP_NAME }}-${{ env.RUNTIME }}.zip
         asset_content_type: application/zip
 
