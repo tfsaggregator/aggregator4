@@ -18,7 +18,7 @@ jobs:
     env:
       DOTNETSDK_VERSION: '5.0.101' # SDK Version to use.
       CONFIGURATION: 'Release'
-      VERSION_ID: '2.0.$GITHUB_RUN_NUMBER'
+      VERSION_ID: '2.0.${{ github.run_number }}'
       RUNTIME: 'win-x64'
       APP_NAME: 'aggregator-cli2'  
 
