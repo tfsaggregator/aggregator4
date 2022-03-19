@@ -9,9 +9,9 @@ namespace aggregator.cli.Commands.Mapping
     [Command(Description = "Manages Aggregator Mapping in Azure DevOps.")]
     public class Mapping
     {
-        [SubCommand]
+        [Subcommand]
         public Local Local { get; set; }
-        [SubCommand]
+        [Subcommand]
         public Remote Remote { get; set; }
     }
 }

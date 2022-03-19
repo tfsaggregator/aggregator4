@@ -13,7 +13,7 @@ namespace aggregator.cli.Commands.Rule
         public void Impersonation(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
-            [Option(ShortName = "n", Description = "Aggregator rule name."), Required] string name,
+            [Option('n', Description = "Aggregator rule name."), Required] string name,
             [Option] bool enable)
         {
             Console.WriteLine($"rule impersonate {enable}");

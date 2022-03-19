@@ -14,7 +14,7 @@ namespace aggregator.cli.Commands.Mapping
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
             [EnvVar("AGGREGATOR_PROJECT")]
-            [Option(ShortName = "p", Description = "Azure DevOps project name."), Required]
+            [Option('p', Description = "Azure DevOps project name."), Required]
             string project 
             )
         {
@@ -25,7 +25,7 @@ namespace aggregator.cli.Commands.Mapping
         public void Add(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] AddMappingOptions mappingOpts,
-            [Option(ShortName ="t", Description = "Aggregator instance URL."), Required] string targetUrl)
+            [Option('t', Description = "Aggregator instance URL."), Required] string targetUrl)
         {
             Console.WriteLine($"rule added");
         }

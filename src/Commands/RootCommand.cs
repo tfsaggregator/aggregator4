@@ -3,15 +3,15 @@
 namespace aggregator.cli.Commands
 {
     [Command(Description = "Aggregator CLI is a tool for Azure DevOps that enables running custom rules in reaction to Work Item events. ")]
-    public class CLI
+    public class RootCommand
     {
-        [SubCommand]
+        [Subcommand]
         public Instance.Instance Instance { get; set; }
 
-        [SubCommand]
+        [Subcommand]
         public Rule.Rule Rule { get; set; }
 
-        [SubCommand]
+        [Subcommand]
         public Mapping.Mapping Mapping { get; set; }
     }
 }

@@ -9,12 +9,20 @@ namespace aggregator.cli.Commands.Instance
     [Command(Description = "Manages Aggregator Instances.")]
     public class Instance
     {
+        readonly IGreeter _greeter;
+
+        public Instance(IGreeter greeter)
+        {
+            _greeter = greeter;
+        }
+
         [Command(Description = "Lists Aggregator instances in Azure.")]
         public void List(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
-            [Option(ShortName = "l", Description = "Aggregator instance location (Azure region).")] string Location,
-            [Option(ShortName = "g", Description = "Azure Resource Group hosting the Aggregator instance.")] string resourceGroup)
+            [Option('l', Description = "Aggregator instance location (Azure region).")] string Location,
+            [Option('g', Description = "Azure Resource Group hosting the Aggregator instance.")] string resourceGroup)
         {
+            _greeter.Greet();
             console.WriteLine($"list instances");
         }
 
@@ -28,7 +36,7 @@ namespace aggregator.cli.Commands.Instance
             console.WriteLine($"instance added");
         }
 
-        [Command(Description = "Creates a new Aggregator instance in Azure.")]
+        [Command(Description = "Creates a new Aggregator instance in Azure using custom source.")]
         public void CreateFrom(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             CreateInstanceOptions createOpts,
@@ -62,7 +70,7 @@ namespace aggregator.cli.Commands.Instance
         public void Destroy(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             CommonInstanceOptions instanceOpts,
-            [Option(ShortName = "m", LongName = "dont-remove-mappings", Description = "Do not remove mappings from Azure DevOps (default is to remove them).")] bool Mappings = true)
+            [Option('m', "dont-remove-mappings", Description = "Do not remove mappings from Azure DevOps (default is to remove them).")] bool Mappings = true)
         {
             console.WriteLine($"instance removed");
         }

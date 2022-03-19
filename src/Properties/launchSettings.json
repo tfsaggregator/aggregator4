@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "aggregator-cli2": {
+      "commandName": "Project",
+      "commandLineArgs": " instance list"
+    }
+  }
+}

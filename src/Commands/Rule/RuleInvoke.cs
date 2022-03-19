@@ -14,7 +14,7 @@ namespace aggregator.cli.Commands.Rule
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
             [Required] CommonInvokeOptions invokeOptions,
-            [Option(ShortName = "s", Description = "Aggregator rule code."), Required] string source)
+            [Option('s', Description = "Aggregator rule code."), Required] string source)
         {
             Console.WriteLine($"rule called");
         }
@@ -24,8 +24,8 @@ namespace aggregator.cli.Commands.Rule
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
             [Required] CommonInvokeOptions invokeOptions,
-            [Option(ShortName = "a", Description = "Azure DevOps account name."), Required] string account,
-            [Option(ShortName = "n", Description = "Aggregator rule name."), Required] string name)
+            [Option('a', Description = "Azure DevOps account name."), Required] string account,
+            [Option('n', Description = "Aggregator rule name."), Required] string name)
         {
             Console.WriteLine($"rule called");
         }

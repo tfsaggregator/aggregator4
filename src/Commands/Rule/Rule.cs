@@ -21,8 +21,8 @@ namespace aggregator.cli.Commands.Rule
         public void Add(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
-            [Option(ShortName = "n", Description = "Aggregator rule name."),Required] string name,
-            [Option(ShortName = "f", Description = "Aggregator rule code."), Required] string file)
+            [Option('n', Description = "Aggregator rule name."),Required] string name,
+            [Option('f', Description = "Aggregator rule code."), Required] string file)
         {
             Console.WriteLine($"rule added");
         }
@@ -31,7 +31,7 @@ namespace aggregator.cli.Commands.Rule
         public void Remove(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
-            [Option(ShortName = "n", Description = "Aggregator rule name."), Required] string name)
+            [Option('n', Description = "Aggregator rule name."), Required] string name)
         {
             Console.WriteLine($"rule removed");
         }
@@ -40,8 +40,8 @@ namespace aggregator.cli.Commands.Rule
         public void Update(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
-            [Option(ShortName = "n", Description = "Aggregator rule name."), Required] string name,
-            [Option(ShortName = "f", Description = "Aggregator rule code."), Required] string file)
+            [Option('n', Description = "Aggregator rule name."), Required] string name,
+            [Option('f', Description = "Aggregator rule code."), Required] string file)
         {
             Console.WriteLine($"rule updated");
         }
@@ -50,7 +50,7 @@ namespace aggregator.cli.Commands.Rule
         public void Enable(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
-            [Option(ShortName = "n", Description = "Aggregator rule name."), Required] string name)
+            [Option('n', Description = "Aggregator rule name."), Required] string name)
         {
             Console.WriteLine($"rule enabled");
         }
@@ -59,15 +59,15 @@ namespace aggregator.cli.Commands.Rule
         public void Disable(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
-            [Option(ShortName = "n", Description = "Aggregator rule name."), Required] string name)
+            [Option('n', Description = "Aggregator rule name."), Required] string name)
         {
             Console.WriteLine($"rule disabled");
         }
 
-        [SubCommand]
+        [Subcommand]
         public Configure Configure { get; set; }
 
-        [SubCommand]
+        [Subcommand]
         public Invoke Invoke { get; set; }
     }
 }

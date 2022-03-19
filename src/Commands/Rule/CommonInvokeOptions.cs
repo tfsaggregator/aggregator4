@@ -14,23 +14,23 @@ namespace aggregator.cli.Commands.Rule
     public class CommonInvokeOptions : IArgumentModel
     {
 
-        [Option(ShortName = "d", LongName = "dryrun", Description = "Non-committing run.")]
+        [Option('d', "dryrun", Description = "Non-committing run.")]
         public bool DryRun { get; set; }
 
         [EnvVar("AGGREGATOR_PROJECT")]
-        [Option(ShortName = "p", Description = "Azure DevOps project name."), Required]
+        [Option('p', Description = "Azure DevOps project name."), Required]
         public string Project { get; set; }
 
-        [Option(ShortName = "e", Description = "Event to emulate."), Required]
+        [Option('e', Description = "Event to emulate."), Required]
         public string Event { get; set; }
 
-        [Option(ShortName = "w", Description = "Id of workitem for the emulated event."), Required]
+        [Option('w', Description = "Id of workitem for the emulated event."), Required]
         public int WorkItemId { get; set; }
 
-        [Option(ShortName = "m", Description = "Save behaviour.")]
+        [Option('m', Description = "Save behaviour.")]
         public SaveMode SaveMode { get; set; } = SaveMode.Default;
 
-        [Option(LongName = "impersonate", Description = "Do rule changes on behalf of the person triggered the rule execution. See wiki for details, requires special account privileges.")]
+        [Option("impersonate", Description = "Do rule changes on behalf of the person triggered the rule execution. See wiki for details, requires special account privileges.")]
         public bool ImpersonateExecution { get; set; }
 
     }

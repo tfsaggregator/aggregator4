@@ -14,7 +14,7 @@ namespace aggregator.cli.Commands.Mapping
             CommonOptions commonOpts, [Required] Credentials cred,
             [Required] InstanceIdOptions instanceOpts,
             [EnvVar("AGGREGATOR_PROJECT")]
-            [Option(ShortName = "p", Description = "Azure DevOps project name."), Required]
+            [Option('p', Description = "Azure DevOps project name."), Required]
             string project 
             )
         {
@@ -43,14 +43,14 @@ namespace aggregator.cli.Commands.Mapping
         public void Update(IConsole console, CancellationToken cancellationToken,
             CommonOptions commonOpts, [Required] Credentials cred,
             [EnvVar("AGGREGATOR_RESOURCEGROUP")]
-            [Option(ShortName = "g", Description = "Azure Resource Group hosting the Aggregator instance."),Required]
+            [Option('g', Description = "Azure Resource Group hosting the Aggregator instance."),Required]
             string resourceGroup,
             [Option(Description = "The name of an existing Aggregator instance (Azure Function App), where the mappings currently points."),Required]
             string sourceInstance,
             [Option(Description = "The name of an existing Aggregator instance (Azure Function App), where the mappings will point if the command is successful."),Required]
             string destInstance,
             [EnvVar("AGGREGATOR_PROJECT")]
-            [Option(ShortName = "p", Description = "Azure DevOps project name."), Required]
+            [Option('p', Description = "Azure DevOps project name."), Required]
             string project)
         {
             Console.WriteLine($"mapping updated");
